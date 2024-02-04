@@ -6,30 +6,36 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private KeyCode left;
+    [SerializeField] private KeyCode right;
+    [SerializeField] private KeyCode up;
+    //[SerializeField] private KeyCode down;
+    [SerializeField] private string axis;
 
     private Rigidbody2D playerRB;
     private bool grounded = false;
     private bool canDoubleJump = true;
+    private Vector3 spawnPosition;
 
     private void Start()
     {
         playerRB = gameObject.GetComponent<Rigidbody2D>();
+        spawnPosition = transform.position;
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+        if (Input.GetKey(left) || Input.GetKey(right))
         {
-            playerRB.velocity = new Vector2(moveSpeed * Input.GetAxis("Horizontal"), playerRB.velocity.y);
+            playerRB.velocity = new Vector2(moveSpeed * Input.GetAxis(axis), playerRB.velocity.y);
         }
         else
         {
             playerRB.velocity = new Vector2(0, playerRB.velocity.y);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && (grounded || canDoubleJump))
+        if (Input.GetKeyDown(up) && (grounded || canDoubleJump))
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
-            //playerRB.AddForce(new Vector2(0, jumpForce));
             if (grounded)
             {
                 grounded = false;
@@ -39,18 +45,6 @@ public class Player : MonoBehaviour
                 canDoubleJump = false;
             }
         }
-        //Debug.Log(Input.GetAxis("Horizontal"));
-        
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    //transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
-        //    playerRB.velocity = new Vector2(moveSpeed, playerRB.velocity.y);
-        //}
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    //transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
-        //    playerRB.velocity = new Vector2(-moveSpeed, playerRB.velocity.y);
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -67,5 +61,20 @@ public class Player : MonoBehaviour
         {
             grounded = false;
         }
+    }
+    
+    public Vector3 GetSpawnPosition()
+    {
+        return spawnPosition;
+    }
+
+    public void SetSpawnPosition(Vector3 spawn)
+    {
+        spawnPosition = spawn;
+    }
+
+    public void RespawnPlayer()
+    {
+        transform.position = spawnPosition;
     }
 }
