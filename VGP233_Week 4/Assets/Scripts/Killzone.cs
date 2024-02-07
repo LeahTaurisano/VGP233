@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Killzone : MonoBehaviour
 {
+    [SerializeField] Player playerCollect;
+    [SerializeField] Player playerAssist;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "PlayerCollect" || collision.tag == "PlayerAssist")
         {
-            Player playerComponent = collision.GetComponent<Player>();
-            playerComponent.RespawnPlayer();
+            playerCollect.RespawnPlayer();
+            playerAssist.RespawnPlayer();
         }
     }
 }
