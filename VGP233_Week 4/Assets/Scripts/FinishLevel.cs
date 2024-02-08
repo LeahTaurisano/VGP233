@@ -12,7 +12,7 @@ public class FinishLevel : MonoBehaviour
         if (collision.tag == "PlayerCollect" || collision.tag == "PlayerAssist")
         {
             UI.enabled = true;
-            if (GemManager.gemCount >= GemManager.maxGems)
+            if (GameManager.Instance.GetGemCount() >= GameManager.Instance.GetMaxGems())
             {
                 text.text = "Victory!";
                 Time.timeScale = 0;

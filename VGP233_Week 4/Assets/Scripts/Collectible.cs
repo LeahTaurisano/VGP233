@@ -8,7 +8,7 @@ public class Collectible : MonoBehaviour
     {
         if (collision.tag == "PlayerCollect")
         {
-            ++GemManager.gemCount;
+            GameManager.Instance.CollectGem();
             Destroy(gameObject);
         }
     }
