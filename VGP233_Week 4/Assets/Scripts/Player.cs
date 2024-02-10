@@ -82,10 +82,16 @@ public class Player : MonoBehaviour
             grounded = true;
             canDoubleJump = true;
         }
-        else if (collision.tag == "Killzone")
+        if (collision.tag == "Killzone")
         {
             RespawnPlayer();
             otherPlayer.RespawnPlayer();
+        }
+        if (collision.tag == "Checkpoint")
+        {
+            Checkpoint respawnPoint = collision.GetComponent<Checkpoint>();
+            SetSpawnPosition(respawnPoint.GetRespawnPosition());
+            otherPlayer.SetSpawnPosition(respawnPoint.GetRespawnPosition());
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

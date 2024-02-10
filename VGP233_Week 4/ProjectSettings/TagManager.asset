@@ -8,6 +8,8 @@ TagManager:
   - PlayerCollect
   - PlayerAssist
   - Killzone
+  - Gem
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

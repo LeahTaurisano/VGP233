@@ -5,8 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public static int maxGems = 1;
-    public static int gemCount = 0;
+
+    private int maxGems;
+    private int gemCount = 0;
 
     void Start()
     {
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        GameObject[] gems = GameObject.FindGameObjectsWithTag("Gem");
+        maxGems = gems.Length;
     }
 
     void Update()
