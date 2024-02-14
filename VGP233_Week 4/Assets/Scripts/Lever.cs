@@ -57,7 +57,7 @@ public class Lever : MonoBehaviour
     {
         foreach (Transform child in transform.GetComponentInChildren<Transform>())
         {
-            child.gameObject.SetActive(isFlipped);
+            child.gameObject.SetActive(!child.gameObject.activeSelf);
         }
     }
 }

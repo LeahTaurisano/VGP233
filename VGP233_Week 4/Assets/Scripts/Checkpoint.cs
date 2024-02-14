@@ -5,6 +5,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     private Vector3 respawnPosition;
+    private bool hasBeenTriggered = false;
 
     private void Start()
     {
@@ -14,5 +15,15 @@ public class Checkpoint : MonoBehaviour
     public Vector3 GetRespawnPosition()
     {
         return respawnPosition;
+    }
+
+    public bool GetHasBeenTriggered()
+    {
+        return hasBeenTriggered;
+    }
+
+    public void SetHasBeenTriggered(bool triggered)
+    {
+        hasBeenTriggered = triggered;
     }
 }

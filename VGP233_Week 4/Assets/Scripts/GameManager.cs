@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = new GameManager();
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -23,11 +23,6 @@ public class GameManager : MonoBehaviour
 
         GameObject[] gems = GameObject.FindGameObjectsWithTag("Gem");
         maxGems = gems.Length;
-    }
-
-    void Update()
-    {
-        
     }
 
     public void CollectGem()

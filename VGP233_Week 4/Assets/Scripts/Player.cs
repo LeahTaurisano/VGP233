@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(playerRB.velocity.y);
         float moveDirection = Input.GetAxis(axis);
         if (moveDirection < 0)
         {
@@ -90,15 +89,13 @@ public class Player : MonoBehaviour
         if (collision.tag == "Checkpoint")
         {
             Checkpoint respawnPoint = collision.GetComponent<Checkpoint>();
-            SetSpawnPosition(respawnPoint.GetRespawnPosition());
-            otherPlayer.SetSpawnPosition(respawnPoint.GetRespawnPosition());
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Platform")
-        {
-            grounded = false;
+            if (!respawnPoint.GetHasBeenTriggered())
+            {
+                Vector3 offset = new Vector3(playerSprite.bounds.size.x, 0, 0);
+                SetSpawnPosition(respawnPoint.GetRespawnPosition());
+                otherPlayer.SetSpawnPosition(respawnPoint.GetRespawnPosition() + offset);
+                respawnPoint.SetHasBeenTriggered(true);
+            }
         }
     }
     
@@ -115,5 +112,6 @@ public class Player : MonoBehaviour
     public void RespawnPlayer()
     {
         transform.position = spawnPosition;
+        playerRB.velocity = Vector2.zero;
     }
 }
