@@ -8,6 +8,7 @@ TagManager:
   - KillPlane
   - TimerText
   - Checkpoint
+  - Knockback
   layers:
   - Default
   - TransparentFX

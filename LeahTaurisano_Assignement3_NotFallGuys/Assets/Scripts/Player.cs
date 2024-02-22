@@ -23,16 +23,16 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.Instance.GetPaused())
         {
-            if (Input.GetKey(KeyCode.W) ||
+            if ((Input.GetKey(KeyCode.W) ||
                 Input.GetKey(KeyCode.A) ||
                 Input.GetKey(KeyCode.S) ||
-                Input.GetKey(KeyCode.D))
+                Input.GetKey(KeyCode.D)) &&
+                isGrounded)
             {
                 float xInput = Input.GetAxis("Horizontal") * moveSpeed;
                 float zInput = Input.GetAxis("Vertical") * moveSpeed;
-
-                Vector3 localVelocity = transform.InverseTransformDirection(rb.velocity);
-                localVelocity = new Vector3(xInput, rb.velocity.y, zInput);
+                
+                Vector3 localVelocity = new Vector3(xInput, rb.velocity.y, zInput);
                 rb.velocity = transform.TransformDirection(localVelocity);
             }
 
@@ -65,10 +65,15 @@ public class Player : MonoBehaviour
         {
             respawnPos = other.transform.position;
         }
+        if (other.tag == "Knockback")
+        {
+            isGrounded = false;
+        }
     }
 
     private void Respawn(Vector3 respawnPos)
     {
         transform.position = respawnPos;
+        rb.velocity = Vector3.zero;
     }
 }

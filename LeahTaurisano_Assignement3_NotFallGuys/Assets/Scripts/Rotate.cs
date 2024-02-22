@@ -8,6 +8,7 @@ public class Rotate : MonoBehaviour
     [SerializeField] private float rotateX;
     [SerializeField] private float rotateY;
     [SerializeField] private float rotateZ;
+    [SerializeField] private float badNumber;
 
     private Rigidbody rb;
 
@@ -15,10 +16,13 @@ public class Rotate : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.AddTorque(rotateX, rotateY, rotateZ);
+        rb.centerOfMass = Vector3.zero;
+
     }
 
     private void Update()
     {
-        //transform.Rotate(rotateX, rotateY, rotateZ);
+        rb.AddTorque(0, 0, badNumber);
+        rb.inertiaTensor = new Vector3(1, 1, 1);
     }
 }
