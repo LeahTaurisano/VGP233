@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float horizSpeed;
     [SerializeField] private float timeJumpCD = 20.0f;
+    [SerializeField] private Material playerReady;
+    [SerializeField] private Material playerCD;
 
     private Rigidbody rb;
     private List<Vector3> timePos;
@@ -17,10 +19,12 @@ public class Player : MonoBehaviour
     bool delayPassed = false;
     bool canTimeJump = false;
     private float timeJumpCDTimer = 0.0f;
+    private MeshRenderer playerMesh;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerMesh = GetComponent<MeshRenderer>();
         timePos = new List<Vector3>();
         timePos.Add(transform.position);
     }
@@ -48,6 +52,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && canTimeJump)
         {
             transform.position = timePos[0];
+            playerMesh.material = playerCD;
             canTimeJump = false;
             timeJumpCDTimer = 0.0f;
         }
@@ -61,12 +66,14 @@ public class Player : MonoBehaviour
             timeJumpCDTimer += Time.deltaTime;
             if (timeJumpCDTimer > timeJumpCD)
             {
+                playerMesh.material = playerReady;
                 canTimeJump = true;
             }
         }
 
         if (delayTimer > delayTimerMax && !delayPassed)
         {
+            playerMesh.material = playerReady;
             canTimeJump = true;
             delayPassed = true;
             timePos.Add(transform.position);

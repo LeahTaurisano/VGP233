@@ -25,8 +25,10 @@ public class AISight : MonoBehaviour
             RaycastHit hit;
             if (Physics.Linecast(aiMove.transform.position, other.transform.position, out hit))
             {
+                Debug.Log("Hit");
                 if (hit.transform.CompareTag("Player"))
                 {
+                    Debug.Log("Hit Player");
                     aiMove.FoundPlayer(other.transform);
                     lightMesh.material = lightRed;
                     seenTimer += Time.deltaTime;

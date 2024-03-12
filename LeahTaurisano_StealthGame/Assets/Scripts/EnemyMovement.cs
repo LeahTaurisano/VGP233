@@ -68,6 +68,14 @@ public class EnemyMovement : MonoBehaviour
         foundPlayer = player;
         currentState = AIState.Chase;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
 }
 
 public enum AIState

@@ -8,8 +8,6 @@ using UnityEngine.UIElements;
 public class VictoryCheck : MonoBehaviour
 {
     [SerializeField] GameObject textCanvas;
-    [SerializeField] TextMeshProUGUI text;
-
     void Start()
     {
         textCanvas.SetActive(false);
@@ -22,8 +20,7 @@ public class VictoryCheck : MonoBehaviour
             textCanvas.SetActive(true);
             if (GameManager.Instance.VictoryCheck())
             {
-                text.text = "Victory!";
-                GameManager.Instance.GameOver();
+                GameManager.Instance.Victory();
             }
         }
     }
